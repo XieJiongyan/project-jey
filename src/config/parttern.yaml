@@ -1,0 +1,8 @@
+---
+hardcode:
+- WORD
+
+
+sentense:
+- cls WORD #0
+- class WORD #1
