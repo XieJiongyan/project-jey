@@ -172,6 +172,7 @@ impl Memory {
             }
             pieces.append(&mut pieces_tline.unwrap());
         }
+        println!("{:?}", pieces);
         self.read_piece(&pieces, 0, 0);
     }
 
@@ -197,7 +198,7 @@ impl Memory {
         #[cfg(test)]
         println!("pattern Node: {:?}", &self.parttern.nodes[0]);
         while let Some(u_edge) = edge {
-            let next_node_id = self.parttern.edges[u_edge].to;
+            let mut next_node_id = self.parttern.edges[u_edge].to;
             let pattern_node: &PartternNode = &self.parttern.nodes[next_node_id];
             println!(
                 "{:?}, {:?} {:?}", 
@@ -214,6 +215,7 @@ impl Memory {
                         eprintln!("Fix the wrong Sentence ID");
                     }
                     self.cls_vec.push(Cls { name: piece.to_owned() });
+                    next_node_id = 0;
                 }
 
                 match self.read_piece(
@@ -238,7 +240,6 @@ impl Memory {
     /// 
     /// Now All of them are classes
     pub fn get_desc(&self) -> String {
-        println!("get desc: {}", self.cls_vec.len());
         let mut s = String::from("");
         for cls in &self.cls_vec {
             s.push_str(&format!("\n{}", cls.name));
@@ -289,7 +290,7 @@ impl Memory {
                 }
             }
         };
-        if last_word_type != "sepearator" {
+        if last_word_type != "sepearator" && last_word != ""{
             v.push(last_word.clone());
         }
         Some(v)

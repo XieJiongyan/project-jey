@@ -29,10 +29,8 @@ impl Config {
 
 pub fn run(config: Config) -> Result<String, String> {
     match config.command {
-        Command::Desc(desc) => {
-            desc.run()
-        }
-        _ => Ok(String::from(""))
+        Command::Desc(desc) => desc.run(),
+        _ => Ok(String::from("")),
     }
 }
 
@@ -87,6 +85,8 @@ impl Desc {
         
         let mut memory = Memory::new();
         memory.read(content);
-        Ok(memory.get_desc())
+        let s = memory.get_desc();
+        println!("{}", s);
+        Ok(s)
     }
 }
